@@ -49,13 +49,12 @@ fn part_two() -> u32 {
                 .collect::<Vec<_>>()
         });
 
-    rows.map(|r| {
-        let pairs = r.iter().cartesian_product(r.iter());
-        pairs.filter_map(|(x, y)| {
+    rows.map(
+        |r| r.iter().tuple_combinations().filter_map(|(x, y)| {
             match x.div_rem(y) {
                 (d, 0) if x != y => Some(d),
                 _ => None,
             }
         }).next().unwrap()
-    }).sum()
+    ).sum()
 }
